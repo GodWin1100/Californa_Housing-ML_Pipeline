@@ -1,3 +1,4 @@
+from logging import exception
 from flask import Flask, request, jsonify, abort
 from housing.logger import logging
 from housing.exception import HousingException
@@ -15,12 +16,7 @@ print(PORT)
 
 @app.get("/")
 def home():
-    try:
-        logging.info("Greeted")
-        raise Exception("custom exception")
-    except Exception as e:
-        housing = HousingException(e)
-        logging.error(housing.error_message)
+    logging.info("Greeted")
     return jsonify({"message": "success"}), 200
 
 

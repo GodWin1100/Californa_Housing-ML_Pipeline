@@ -1,29 +1,27 @@
-import os
 import sys
 
 
 class HousingException(Exception):
-    def __init__(self, error_message: Exception, error_detail: sys = sys):
+    def __init__(self, error_message: Exception):
         super().__init__(error_message)
-        self.error_message = HousingException.__get_detailed_error_message(error_message, error_detail)
+        self.error_message = HousingException.__get_detailed_error_message(error_message)
 
     @staticmethod
-    def __get_detailed_error_message(error_message: Exception, error_detail: sys) -> str:
+    def __get_detailed_error_message(error_message: Exception) -> str:
         """Return detailed error traceback
 
         Args:
             error_message (Exception): Exception Object
-            error_detail (sys): sys Object
 
         Returns:
             str: Error description
         """
-        _, _, exec_tb = error_detail.exc_info()
+        _, _, exec_tb = sys.exc_info()
         # exc_info() #? (type, value, traceback) return information about the most recent exception caught by an except clause in the current stack frame
         line_no = exec_tb.tb_frame.f_lineno
         file_name = exec_tb.tb_frame.f_code.co_filename
         error_detail = (
-            f"Error occurred in script: [{file_name}] at line number: [{line_no}] with error message: [{error_message}]"
+            f"Error occurred in script: {file_name} at line number: [{line_no}] with error message: {error_message}"
         )
         return error_detail
 
