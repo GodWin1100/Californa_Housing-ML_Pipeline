@@ -11,8 +11,8 @@
 # if package is installed in editable mode, then any changes made in the package will be reflected without any need to reinstall the package at every changes.
 
 
-from logging import exception
 from setuptools import setup, find_packages
+from typing import List
 
 PROJECT_NAME = "California-Housing-Predictor"
 VERSION = "0.0.1"
@@ -26,7 +26,7 @@ REQUIREMENT_FILE = "./requirements.txt"
 EDITABLE = "-e ."
 
 
-def get_requirements_list() -> list[str]:  # can import from typing package for older python version
+def get_requirements_list() -> List[str]:  # can import from typing package for older python version
     """Return list of packages defined in REQUIREMENT_FILE
 
     Returns:
