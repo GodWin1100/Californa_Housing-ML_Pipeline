@@ -28,7 +28,7 @@ class HousingException(Exception):
         # exc_info() #? (type, value, traceback) return information about the most recent exception caught by an except clause in the current stack frame
         line_no = exec_tb.tb_frame.f_lineno
         file_name = exec_tb.tb_frame.f_code.co_filename
-        error_detail = f"Error captured in: {file_name} at line number: [{line_no}] with error message: {error_message}"
+        error_detail = f"Error captured in: {file_name}: [{line_no}], error message: {error_message}"
         return error_detail
 
     def __str__(self) -> str:
