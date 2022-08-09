@@ -17,7 +17,6 @@ from sklearn.model_selection import StratifiedShuffleSplit
 class DataIngestion:
     def __init__(self, data_ingestion_config: DataIngestionConfig):
         try:
-            logging.info(f"Data Ingestion Log Started".center(60, "-"))
             self.data_ingestion_config = data_ingestion_config
         except Exception as e:
             raise HousingException(e) from e
@@ -68,8 +67,8 @@ class DataIngestion:
             strat_test_set = None
             split = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
             for train_index, test_index in split.split(df_housing, df_housing["income_category"]):
-                strat_train_set = df_housing.loc[train_index].drop(["income_cat"], axis=1)
-                strat_test_set = df_housing.loc[test_index].drop(["income_cat"], axis=1)
+                strat_train_set = df_housing.loc[train_index].drop(["income_category"], axis=1)
+                strat_test_set = df_housing.loc[test_index].drop(["income_category"], axis=1)
             train_file_path = os.path.join(self.data_ingestion_config.ingested_train_dir, file_name)
             test_file_path = os.path.join(self.data_ingestion_config.ingested_test_dir, file_name)
             if strat_train_set is not None:
@@ -93,8 +92,11 @@ class DataIngestion:
 
     def initiate_data_ingestion(self) -> DataIngestionArtifact:
         try:
+            logging.info(f"Data Ingestion Log Started".center(100, "-"))
             tgz_file_path = self.download_housing_data()
             self.extract_tgz_file(tgz_file_path=tgz_file_path)
-            return self.split_data()
+            data_ingestion_artifact = self.split_data()
+            logging.info(f"Data Ingestion Log Completed".center(100, "-"))
+            return data_ingestion_artifact
         except Exception as e:
             raise HousingException(e) from e

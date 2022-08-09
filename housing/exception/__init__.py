@@ -7,6 +7,7 @@ import sys
 class HousingException(Exception):
     def __init__(self, error_message: Exception):
         """Return error message with filename, line number where it was captured and message of the exception.
+        Nested captured traceback included.
 
         Args:
             error_message (Exception): exception object
