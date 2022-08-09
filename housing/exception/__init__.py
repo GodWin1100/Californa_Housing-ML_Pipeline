@@ -27,7 +27,8 @@ class HousingException(Exception):
         """
         _, _, exec_tb = sys.exc_info()
         # exc_info() #? (type, value, traceback) return information about the most recent exception caught by an except clause in the current stack frame
-        line_no = exec_tb.tb_frame.f_lineno
+        # line_no = exec_tb.tb_frame.f_lineno # ! This will give line no. of except block
+        line_no = exec_tb.tb_lineno  # this will give line no. of where exception occurred
         file_name = exec_tb.tb_frame.f_code.co_filename
         error_detail = f"Error captured in: {file_name}: [{line_no}], error message: {error_message}"
         return error_detail
