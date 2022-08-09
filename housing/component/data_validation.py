@@ -71,9 +71,12 @@ class DataValidation:
             profile.calculate(train_df, test_df)
             # # in actuality we will check for train and test data also but majorly for existed train data and new train data
             report = json.loads(profile.json())
-            with open(self.data_validation_config.report_file_path, "w") as report_file:
+            report_file_path = self.data_validation_config.report_file_path
+            report_dir = os.path.dirname(report_file_path)
+            os.makedirs(report_dir, exist_ok=True)
+            with open(report_file_path, "w") as report_file:
                 json.dump(report, report_file, indent=4)
-            logging.info(f"Successfully created Data Drift Report at {self.data_validation_config.report_file_path}")
+            logging.info(f"Successfully created Data Drift Report at {report_file_path}")
             return report
         except Exception as e:
             raise HousingException(e) from e
@@ -84,10 +87,11 @@ class DataValidation:
             dashboard = Dashboard(tabs=[DataDriftTab()])
             train_df, test_df = self.get_train_test_df()
             dashboard.calculate(train_df, test_df)
-            dashboard.save(self.data_validation_config.report_page_file_path)
-            logging.info(
-                f"Successfully Saved Data Drift Report Page at {self.data_validation_config.report_page_file_path}"
-            )
+            report_page_file_path = self.data_validation_config.report_page_file_path
+            report_dir = os.path.dirname(report_page_file_path)
+            os.makedirs(report_dir, exist_ok=True)
+            dashboard.save(report_page_file_path)
+            logging.info(f"Successfully Saved Data Drift Report Page at {report_page_file_path}")
         except Exception as e:
             raise HousingException(e) from e
 
