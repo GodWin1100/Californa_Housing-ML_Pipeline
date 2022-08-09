@@ -30,7 +30,7 @@ class HousingException(Exception):
         line_no = exec_tb.tb_lineno  # this will give line no. of where exception occurred
         except_line_no = exec_tb.tb_frame.f_lineno  # ! This will give line no. of except block
         file_name = exec_tb.tb_frame.f_code.co_filename
-        error_detail = f"\nError occurred in:\n{file_name}: [{line_no}],\nError captured at [{except_line_no}],\nerror message: {error_message}"
+        error_detail = f"\n\tError occurred in:\n\t{file_name}: [{line_no}],\n\tError captured at [{except_line_no}],\n\terror message: {error_message}"
         return error_detail
 
     def __str__(self) -> str:
