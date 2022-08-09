@@ -95,8 +95,9 @@ class DataIngestion:
             logging.info(f"Data Ingestion Log Started".center(100, "-"))
             tgz_file_path = self.download_housing_data()
             self.extract_tgz_file(tgz_file_path=tgz_file_path)
-            data_ingestion_artifact = self.split_data()
-            logging.info(f"Data Ingestion Log Completed".center(100, "-"))
-            return data_ingestion_artifact
+            return self.split_data()
         except Exception as e:
             raise HousingException(e) from e
+
+    def __del__(self):
+        logging.info(f"Data Ingestion Log Completed".center(100, "-"))
