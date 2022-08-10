@@ -169,8 +169,8 @@ class DataTransformation:
             test_file_name = os.path.basename(test_file_path).replace(".csv", ".npz")
 
             logging.info("Storing transformed data")
-            transformed_train_file_path = os.path.join([transformed_train_dir, train_file_name])
-            transformed_test_file_path = os.path.join([transformed_test_dir, test_file_name])
+            transformed_train_file_path = os.path.join(transformed_train_dir, train_file_name)
+            transformed_test_file_path = os.path.join(transformed_test_dir, test_file_name)
             save_numpy_array_data(file_path=transformed_train_file_path, array=train_arr)
             save_numpy_array_data(file_path=transformed_test_file_path, array=test_arr)
             logging.info(f"Stored Transformed Train Data at {transformed_train_file_path}")
