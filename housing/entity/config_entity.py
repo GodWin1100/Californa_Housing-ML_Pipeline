@@ -19,7 +19,9 @@ DataTransformationConfig = namedtuple(
 )
 
 # model_object_export_path, base_accuracy #! if trained model accuracy less than base_accuracy then reject the model
-ModelTrainerConfig = namedtuple("ModelTrainerConfig", ["trained_model_file_path", "base_accuracy"])
+ModelTrainerConfig = namedtuple(
+    "ModelTrainerConfig", ["trained_model_file_path", "base_accuracy", "model_config_file_path"]
+)
 
 # file_path of all the existing model in production, timestamp
 ModelEvaluationConfig = namedtuple("ModelEvaluationConfig", ["model_evaluation_file_path", "time_stamp"])
