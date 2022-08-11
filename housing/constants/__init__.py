@@ -57,7 +57,11 @@ MODEL_EVALUATION_ARTIFACT_DIR = "model_evaluation"
 MODEL_EVALUATION_CONFIG_KEY = "model_evaluation_config"
 MODEL_EVALUATION_FILE_NAME_KEY = "model_evaluation_file_name"
 
-# * Schema file variable
+# * Model Pusher Variable
+MODEL_PUSHER_CONFIG_KEY = "model_pusher_config"
+MODEL_PUSHER_MODEL_EXPORT_DIR_KEY = "model_export_dir"
+
+# * Schema File Variable
 SCHEMA_COLUMN_KEY = "columns"
 SCHEMA_TARGET_COLUMN_KEY = "target_column"
 SCHEMA_DOMAIN_VALUE_KEY = "domain_value"
@@ -77,3 +81,12 @@ COLUMN_MEDIAN_INCOME = "median_income"
 COLUMN_MEDIAN_HOUSE_VALUE = "median_house_value"
 COLUMN_OCEAN_PROXIMITY = "ocean_proximity"
 TARGET_COLUMN_KEY = "target_column"
+
+# * Best Model
+BEST_MODEL_KEY = "best_model"
+HISTORY_KEY = "history"
+MODEL_PATH_KEY = "model_path"
+
+# * Experiment Variable
+EXPERIMENT_DIR_NAME = "experiment"
+EXPERIMENT_FILE_NAME = "experiment.csv"
