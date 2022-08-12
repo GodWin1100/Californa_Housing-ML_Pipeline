@@ -1,6 +1,11 @@
 import os
 from datetime import datetime
 
+
+def get_current_time_stamp():
+    return f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}"
+
+
 ROOT_DIR = os.getcwd()
 
 CONFIG_DIR = "config"
@@ -84,8 +89,8 @@ TARGET_COLUMN_KEY = "target_column"
 
 # * Best Model
 BEST_MODEL_KEY = "best_model"
-HISTORY_KEY = "history"
 MODEL_PATH_KEY = "model_path"
+HISTORY_KEY = "history"
 
 # * Experiment Variable
 EXPERIMENT_DIR_NAME = "experiment"

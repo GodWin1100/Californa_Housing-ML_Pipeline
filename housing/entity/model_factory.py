@@ -87,7 +87,7 @@ def evaluate_regression_model(
     y_test: Testing dataset input feature
 
     return
-    It retured a named tuple
+    It returned a named tuple
 
     MetricInfoArtifact = namedtuple("MetricInfo",
                                 ["model_name", "model_object", "train_rmse", "test_rmse", "train_accuracy",
@@ -201,6 +201,18 @@ class ModelFactory:
             raise HousingException(e) from e
 
     @staticmethod
+    def class_for_name(module_name: str, class_name: str):
+        try:
+            # load the module, will raise ImportError if module cannot be loaded
+            module = importlib.import_module(module_name)
+            # get the class, will raise AttributeError if class cannot be found
+            logging.info(f"Executing command: from {module} import {class_name}")
+            class_ref = getattr(module, class_name)
+            return class_ref
+        except Exception as e:
+            raise HousingException(e) from e
+
+    @staticmethod
     def update_property_of_class(instance_ref: object, property_data: dict):
         try:
             if not isinstance(property_data, dict):
@@ -219,18 +231,6 @@ class ModelFactory:
             with open(config_path) as yaml_file:
                 config: dict = yaml.safe_load(yaml_file)
             return config
-        except Exception as e:
-            raise HousingException(e) from e
-
-    @staticmethod
-    def class_for_name(module_name: str, class_name: str):
-        try:
-            # load the module, will raise ImportError if module cannot be loaded
-            module = importlib.import_module(module_name)
-            # get the class, will raise AttributeError if class cannot be found
-            logging.info(f"Executing command: from {module} import {class_name}")
-            class_ref = getattr(module, class_name)
-            return class_ref
         except Exception as e:
             raise HousingException(e) from e
 
@@ -318,10 +318,10 @@ class ModelFactory:
         self, initialized_model: InitializedModelDetail, input_feature, output_feature
     ) -> GridSearchedBestModel:
         """
-        initiate_best_model_parameter_search(): function will perform paramter search operation and
-        it will return you the best optimistic  model with best paramter:
+        initiate_best_model_parameter_search(): function will perform parameter search operation and
+        it will return you the best optimistic  model with best parameter:
         estimator: Model object
-        param_grid: dictionary of paramter to perform search operation
+        param_grid: dictionary of parameter to perform search operation
         input_feature: your all input features
         output_feature: Target/Dependent features
         ================================================================================
@@ -340,9 +340,9 @@ class ModelFactory:
 
         try:
             self.grid_searched_best_model_list = []
-            for initialized_model_list in initialized_model_list:
+            for initialized_model in initialized_model_list:
                 grid_searched_best_model = self.initiate_best_parameter_search_for_initialized_model(
-                    initialized_model=initialized_model_list, input_feature=input_feature, output_feature=output_feature
+                    initialized_model=initialized_model, input_feature=input_feature, output_feature=output_feature
                 )
                 self.grid_searched_best_model_list.append(grid_searched_best_model)
             return self.grid_searched_best_model_list
