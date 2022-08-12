@@ -5,4 +5,6 @@ evidently==0.1.55.dev0
 Flask==2.2.1
 numpy==1.23.1
 scikit-learn==1.1.2
+PyYAML==5.4.1
+gunicorn
 -e .
