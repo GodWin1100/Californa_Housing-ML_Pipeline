@@ -12,7 +12,7 @@ from housing.exception import HousingException
 
 
 ROOT_DIR = os.getcwd()
-LOG_FOLDER_NAME = "logs"
+LOG_FOLDER_NAME = "housing_logs"
 PIPELINE_FOLDER_NAME = "housing"
 SAVED_MODELS_DIR_NAME = "saved_models"
 MODEL_CONFIG_FILE_PATH = os.path.join(ROOT_DIR, CONFIG_DIR, "model.yaml")
@@ -180,10 +180,12 @@ def render_log_dir(req_path):
     print(abs_path)
     # Return 404 if path doesn't exist
     if not os.path.exists(abs_path):
+        print("aborting??", abs_path)
         return abort(404)
 
     # Check if path is a file and serve
     if os.path.isfile(abs_path):
+        print("file?", abs_path)
         log_df = get_log_dataframe(abs_path)
         context = {"log": log_df.to_html(classes="table-striped", index=False)}
         return render_template("log.html", context=context)
