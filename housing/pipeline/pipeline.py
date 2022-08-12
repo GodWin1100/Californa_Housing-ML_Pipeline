@@ -6,6 +6,7 @@ from housing.component.data_validation import DataValidation
 from housing.component.data_transformation import DataTransformation
 from housing.component.model_trainer import ModelTrainer
 from housing.component.model_evaluation import ModelEvaluation
+from housing.component.model_pusher import ModelPusher
 from housing.logger import logging
 from housing.exception import HousingException
 
@@ -74,8 +75,15 @@ class Pipeline:
         except Exception as e:
             raise HousingException(e) from e
 
-    def start_model_pusher(self):
-        pass
+    def start_model_pusher(self, model_evaluation_artifact: ModelEvaluationArtifact) -> ModelPusherArtifact:
+        try:
+            model_pusher = ModelPusher(
+                model_pusher_config=self.config.get_model_pusher_config(),
+                model_evaluation_artifact=model_evaluation_artifact,
+            )
+            return model_pusher.initiate_model_pusher()
+        except Exception as e:
+            raise HousingException(e) from e
 
     def run_pipeline(self):
         try:
@@ -90,5 +98,6 @@ class Pipeline:
                 data_validation_artifact=data_validation_artifact,
                 model_trainer_artifact=model_trainer_artifact,
             )
+            model_pusher_artifact = self.start_model_pusher(model_evaluation_artifact)
         except Exception as e:
             raise HousingException(e) from e
