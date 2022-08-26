@@ -1,3 +1,4 @@
+from distutils.log import debug
 import os
 import json
 from flask import Flask, request
@@ -70,10 +71,12 @@ def index():
 
 @app.route("/view_experiment_hist", methods=["GET", "POST"])
 def view_experiment_history():
-    experiment_df = Pipeline.get_experiments_status()
-    context = {"experiment": experiment_df.to_html(classes="table table-striped col-12")}
-    return render_template("experiment_history.html", context=context)
-
+    try:
+        experiment_df = Pipeline.get_experiments_status()
+        context = {"experiment": experiment_df.to_html(classes="table table-striped col-12")}
+        return render_template("experiment_history.html", context=context)
+    except Exception as e:
+        return str(e)
 
 @app.route("/train", methods=["GET", "POST"])
 def train():
@@ -198,4 +201,4 @@ def render_log_dir(req_path):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
