@@ -9,8 +9,8 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import StratifiedShuffleSplit
 
-# downloading files in python
-# https://www.codingem.com/python-download-file-from-url/
+## downloading files in python
+# ? https://www.codingem.com/python-download-file-from-url/
 # from six.moves import urllib  # six.moves contains packages which has backward compatibility for python2 and python3
 
 
